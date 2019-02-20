@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table table-hover table-bordered table-striped" id="mydata">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>PREGNANCIES</th>
+			<th>GLUCOSE</th>
+			<th>BMI</th>
+			<th>PEDIGREE FUNCTION</th>
+			<th>AGE</th>
+			<th>PREDICTED OUTCOME</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for patient in patients.items %}
+		<tr>
+			<td>{{ patient.id }}</td>
+			<td>{{ patient.pregnancies }}</td>
+			<td>{{ patient.glucose }}</td>
+			<td>{{ patient.bmi }}</td>
+			<td>{{ patient.pedigree_function }}</td>
+			<td>{{ patient.age }}</td>
+			<td>{{ patient.outcome }}</td>
+		</tr>
+	
+	{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock content %}

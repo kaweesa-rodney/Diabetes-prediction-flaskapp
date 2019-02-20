@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dataTables.bootstrap4.min.css') }}">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+	{% if title %}
+		<title>::Health-APP-{{ title }}</title>
+	{% else %}
+		<title>::Health-APP</title>
+	{% endif %}
+	<style type="text/css">
+		body{
+			
+			zoom:90%;
+		}
+	</style>
+</head>
+<body>
+	<header class="site-header">
+		<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+			<div class="container">
+				<a class="navbar-brand mr-4" href="/">Health APP</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarToggle">
+					<div class="navbar-nav mr-auto">
+						{% if current_user.is_authenticated %}
+							
+						{% else %}
+							<a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+						{% endif %}	
+					
+					</div>
+
+					<!--navbar right side -->
+					<div class="navbar-nav" id="side-stuff">
+						{% if current_user.is_authenticated %}
+							<a class="nav-item nav-link" href="{{ url_for('patients.new_patient') }}">New Patient</a>
+							<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+							<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+						{% else %}
+							<a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+							<a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	
+		<main role="main" class="container">
+			<div class="row">
+				<div class="col-md-12">
+					{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+								<div class="alert alert-{{ category}}">
+									{{ message }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+
+					{% block content %}{% endblock %}
+				</div>
+				
+			</div>
+		</main>
+	
+
+	
+
+	
+	<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+	<script src="{{ url_for('static', filename='jquery-3.3.1.js') }}"></script>
+	<script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='jquery.dataTables.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='dataTables.bootstrap4.min.js') }}"></script>
+
+	<script type="text/javascript">
+      $(document).ready(function() {
+		    $('#mydata').DataTable();
+		} );
+    </script>
+	
+</body>
+</html>
